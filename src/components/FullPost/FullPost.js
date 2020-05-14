@@ -8,10 +8,17 @@ class FullPost extends Component {
         loadedPost: null
     }
 
+    deletePostHandler = (id) => {
+        axios.delete('/posts/' + this.props.id)
+        .then(response => {
+            console.log(response);
+        });
+    };
+
     componentDidUpdate() {
         if(this.props.id) {
             if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-                axios.get('http://jsonplaceholder.typicode.com/posts/' + this.props.id)
+                axios.get('/posts/' + this.props.id)
             .then(response => {
                 this.setState({
                     loadedPost: response.data
@@ -24,7 +31,7 @@ class FullPost extends Component {
     render () {
         let post = <p style = {{textAlign: "center"}}>Please select a Post!</p>;
         if(this.props.id) {
-            post = ( <div>Loading...</div> )
+            post = ( <div style = {{textAlign: "center"}} >Loading...</div> )
         }
             if(this.state.loadedPost) {
                 post = (
@@ -32,7 +39,7 @@ class FullPost extends Component {
                         <h1>{this.state.loadedPost.title}</h1>
                         <p>{this.state.loadedPost.body}</p>
                         <div className="Edit">
-                            <button className="Delete">Delete</button>
+                            <button onClick = {() => this.deletePostHandler(this.state.loadedPost.id)} className="Delete">Delete</button>
                         </div>
                     </div>
                 );
