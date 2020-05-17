@@ -3,6 +3,7 @@ import Posts from '../../containers/Blog/Posts/Posts';
 import './Blog.css';
 import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import NewPost from './NewPost/NewPost';
+import FullPost from '../Blog/FullPost/FullPost';
 
 class Blog extends Component { 
     render () {
@@ -22,6 +23,7 @@ class Blog extends Component {
                 <Switch>
                     <Route path = "/new-post" exact component = {NewPost}></Route>
                     <Route path = "/" exact component = {Posts}></Route>
+                    <Route path = "/:id" exact component = {FullPost}></Route>
                     <Redirect from ="/posts" to = "/" exact></Redirect>
                 </Switch>
             </div>
